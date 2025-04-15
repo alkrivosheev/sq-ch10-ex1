@@ -1,5 +1,7 @@
 package ru.job4j.sqch10ex1.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.job4j.sqch10ex1.model.Country;
@@ -10,9 +12,14 @@ import java.util.List;
 public class CountryController {
 
     @GetMapping("/france")
-    public Country france() {
+    public ResponseEntity<Country> france() {
         Country c = Country.of("France", 67);
-        return c;
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .header("continent", "Europe")
+                .header("capital", "Paris")
+                .header("favorite_food", "cheese and wine")
+                .body(c);
     }
 
     @GetMapping("/all")
